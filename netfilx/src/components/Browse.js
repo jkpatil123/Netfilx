@@ -1,11 +1,11 @@
 import React from 'react'
 
-const Footer = () => {
+const Browse = () => {
   return (
     <div>
-      Footer
+      browser
     </div>
   )
 }
 
-export default Footer
+export default Browse
