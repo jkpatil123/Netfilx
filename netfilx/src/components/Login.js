@@ -7,8 +7,8 @@ const Login = () => {
   const password= useRef(null);
   const handleButtonClick =()=>{
     // validate the form data
-     console.log(email);
-     console.log(password)
+     console.log(email.current.value);
+     console.log(password.current.value)
   }
 
   const [isSignInForm , setSignInForm] = useState(true);
@@ -23,11 +23,11 @@ const Login = () => {
         alt='Netfilx Logo'
       />
       </div>
-      <form className=' w-3/12 absolute p-12 bg-black my-36 mx-auto right-0 left-0  text-white rounded-lg'>
+      <form onSubmit={(e)=>e.preventDefault()} className=' w-3/12 absolute p-12 bg-black my-36 mx-auto right-0 left-0  text-white rounded-lg'>
        <h1 className='font-bold text-3xl py-4'>{isSignInForm ? 'Sign In':"Sign Up"}</h1>
         <input  ref={email}  type='text' placeholder='Email Address'
          className='p-2 my-2 w-full bg-gray-700' />
-   {!isSignInForm && (<input ref={text}  type='text' placeholder='Full Name'
+   {!isSignInForm && (<input  type='text' placeholder='Full Name'
          className='p-2 my-2 w-full  bg-gray-700'/>)}
    <input ref={password}   type='password' placeholder='Password'
          className='p-2 my-2 w-full bg-gray-700'/>
