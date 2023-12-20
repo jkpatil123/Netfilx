@@ -1,14 +1,19 @@
 import React, { useRef, useState } from 'react'
 import Header from './Header'
-import { checkValiData} from '../utils/validate'
+import { checkValidData} from '../utils/validate'
 
 const Login = () => {
   const email = useRef(null);
   const password= useRef(null);
+  const [errorMessage,setErrorMessage]=useState(null);
   const handleButtonClick =()=>{
     // validate the form data
+
      console.log(email.current.value);
      console.log(password.current.value)
+     const message= checkValidData(email.current.value , password.current.value);
+     console.log(message);
+     setErrorMessage(message)
   }
 
   const [isSignInForm , setSignInForm] = useState(true);
@@ -31,7 +36,7 @@ const Login = () => {
          className='p-2 my-2 w-full  bg-gray-700'/>)}
    <input ref={password}   type='password' placeholder='Password'
          className='p-2 my-2 w-full bg-gray-700'/>
-
+   <p className='text-red-500 font-bold text-lg py-3'>{errorMessage}</p>
         <button
          className='p-4 my-4
           bg-red-700
