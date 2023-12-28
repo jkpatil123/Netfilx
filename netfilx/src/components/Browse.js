@@ -6,6 +6,7 @@ const Browse = () => {
      <div>
       browser
     
+    <div>ffuf</div>
 
     </div>
 
