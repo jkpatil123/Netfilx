@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react'
 import Header from './Header'
 import { checkValidData} from '../utils/validate'
-
+import {firebase} from '../utils/firebase'
 const Login = () => {
   const email = useRef(null);
   const password= useRef(null);
