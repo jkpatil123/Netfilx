@@ -3,7 +3,9 @@ import Header from './Header'
 import { checkValidData} from '../utils/validate';
 import {addDoc,collection} from "@firebase/firestore"
 import { firestore } from '../utils/firebase';
+import { auth } from '../utils/firebase';
 // import {firebase} from '../utils/firebase';
+import { createUserWithEmailAndPassword } from "firebase/auth";
 
 const Login = () => {
   const email = useRef(null);
@@ -13,14 +15,35 @@ const Login = () => {
   const ref = collection(firestore,"message");
 
   const handleButtonClick =()=>{
+
     // validate the form data
 
-     console.log(email.current.value);
-     console.log(password.current.value)
+    //  console.log(email.current.value);
+    //  console.log(password.current.value)
      const message= checkValidData(email.current.value , password.current.value);
-     console.log(message);
-     setErrorMessage(message)
-  }
+    //  console.log(message);
+     setErrorMessage(message);
+
+
+ if(!isSignInForm){
+  createUserWithEmailAndPassword(auth, email.current.value ,password.current.value)
+  .then((userCredential) => {
+    // Signed up 
+    const user = userCredential.user;
+    console.log(user);
+    // ...
+  })
+  .catch((error) => {
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    // ..
+  });
+ } else{
+
+ }
+
+
+  };
 
   const [isSignInForm , setSignInForm] = useState(true);
   const toggleSignInForm=()=>{
