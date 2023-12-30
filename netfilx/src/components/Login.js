@@ -1,11 +1,17 @@
 import React, { useRef, useState } from 'react'
 import Header from './Header'
-import { checkValidData} from '../utils/validate'
-import {firebase} from '../utils/firebase'
+import { checkValidData} from '../utils/validate';
+import {addDoc,collection} from "@firebase/firestore"
+import { firestore } from '../utils/firebase';
+// import {firebase} from '../utils/firebase';
+
 const Login = () => {
   const email = useRef(null);
   const password= useRef(null);
+  const name = useRef(null);
   const [errorMessage,setErrorMessage]=useState(null);
+  const ref = collection(firestore,"message");
+
   const handleButtonClick =()=>{
     // validate the form data
 
@@ -20,6 +26,26 @@ const Login = () => {
   const toggleSignInForm=()=>{
      setSignInForm(!isSignInForm)
   }
+
+  const handleSave = async(e)=>{
+     e.preventDefault();
+     console.log(email.current.value);
+     console.log(password.current.value);
+     console.log(name.current.value);
+
+
+     let data={
+      email:email.current.value,
+      password:password.current.value,
+      name:name.current.value
+     }
+
+     try{
+      addDoc(ref,data)
+     }catch(e){
+      console.log(e);
+     }
+  }
   return (
     <div>
       <Header/>
@@ -28,12 +54,13 @@ const Login = () => {
         alt='Netfilx Logo'
       />
       </div>
-      <form onSubmit={(e)=>e.preventDefault()} className=' w-3/12 absolute p-12 bg-black my-36 mx-auto right-0 left-0  text-white rounded-lg'>
+      <form onSubmit={handleSave} className=' w-3/12 absolute p-12 bg-black my-36 mx-auto right-0 left-0  text-white rounded-lg'>
        <h1 className='font-bold text-3xl py-4'>{isSignInForm ? 'Sign In':"Sign Up"}</h1>
+       {!isSignInForm && (<input ref={name} type='text' placeholder='Full Name'
+         className='p-2 my-2 w-full  bg-gray-700'/>)}
         <input  ref={email}  type='text' placeholder='Email Address'
          className='p-2 my-2 w-full bg-gray-700' />
-   {!isSignInForm && (<input  type='text' placeholder='Full Name'
-         className='p-2 my-2 w-full  bg-gray-700'/>)}
+   
    <input ref={password}   type='password' placeholder='Password'
          className='p-2 my-2 w-full bg-gray-700'/>
    <p className='text-red-500 font-bold text-lg py-3'>{errorMessage}</p>

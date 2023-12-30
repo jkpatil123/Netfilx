@@ -5,6 +5,10 @@
 -Header
 -Login Form
 -Sign up form
+-form validation
+- useRef Hook
+- Firebase Setup
+-Deploying our app to production
 
 
 
