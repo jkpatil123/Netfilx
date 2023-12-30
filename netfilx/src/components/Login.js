@@ -36,10 +36,22 @@ const Login = () => {
   .catch((error) => {
     const errorCode = error.code;
     const errorMessage = error.message;
+    setErrorMessage(errorCode+""+errorMessage);
     // ..
   });
- } else{
-
+}
+ else{
+  signInWithEmailAndPassword(auth,email.current.value,password.current.value)
+  .then((userCredential) => {
+    // Signed in 
+    const user = userCredential.user;
+    // ...
+  })
+  .catch((error) => {
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    setErrorMessage(errorCode+""+errorMessage);
+  });
  }
 
 
